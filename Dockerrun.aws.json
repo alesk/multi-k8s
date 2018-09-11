@@ -6,27 +6,27 @@
             "image": "aleskotnik/multi-client",
             "hostname": "client",
             "essential": false,
-            "memory": 128
+            "memory": 256
         },
         {
             "name": "server",
             "image": "aleskotnik/multi-server",
             "hostname": "api",
             "essential": false,
-            "memory": 128
+            "memory": 256
         },
         {
             "name": "worker",
             "image": "aleskotnik/multi-worker",
             "hostname": "worker",
             "essential": false,
-            "memory": 128
+            "memory": 256
         },
         {
             "name": "nginx",
             "image": "aleskotnik/multi-client",
             "essential": true,
-            "memory": 128,
+            "memory": 256,
             "portMappings": [
                 {
                 "containerPort": 80,
