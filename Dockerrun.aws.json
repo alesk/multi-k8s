@@ -1,0 +1,40 @@
+{
+    "AWSEBDockerrunVersion": 2,
+    "containerDefinitions": [
+        {
+            "name": "client",
+            "image": "aleskotnik/multi-client",
+            "hostname": "client",
+            "essential": false,
+            "memory": 128
+        },
+        {
+            "name": "server",
+            "image": "aleskotnik/multi-server",
+            "hostname": "api",
+            "essential": false,
+            "memory": 128
+        },
+        {
+            "name": "worker",
+            "image": "aleskotnik/multi-worker",
+            "hostname": "worker",
+            "essential": false,
+            "memory": 128
+        },
+        {
+            "name": "nginx",
+            "image": "aleskotnik/multi-client",
+            "essential": true,
+            "memory": 128,
+            "portMappings": [
+                {
+                "containerPort": 80,
+                "hostPort": 80
+                }
+            ],
+            "links": ["client", "server"]
+        }
+
+    ]
+}
