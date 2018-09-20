@@ -1,0 +1,8 @@
+Extra steps
+
+* Create secret
+
+#+begin_src
+kubectl.exe create secret generic pgpassword --from-lit
+eral PGPASSWORD=somepassword
+#+end_src
