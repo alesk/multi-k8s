@@ -1,5 +1,7 @@
 * Extra steps
 
+Consult curse repo at: https://github.com/StephenGrider/multi-k8s
+
 ** Create secret
 
 #+begin_src
