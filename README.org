@@ -83,3 +83,8 @@ Install postgres ingress
 #+begin_src
 helm install stable/nginx-ingress --name my-nginx --set rbac.create=true
 #+end_src
+
+*** Add HTTPS
+
+I'm using k8s.draagle.net.
+
