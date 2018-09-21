@@ -30,7 +30,54 @@ minikube addons enable ingress
 Create service account.
 Download credentials in json format and name it service-account.json.
 Install travis CLI inside ruby:2.3 container
+
+#+begin_src
+docker run -it -v $(pwd):/app ruby:2.3 sh
+#+end_src
+
 Encrypt service-account.json to service-account.json.enc.
 Delete the original unencrypted service-account.json nad put encrypted
 version to repo.
 Enhance .travis.yml with additional step that decrypts serice-account.json.enc.
+
+*** Production Cluster setup
+
+You have to set project, zone and get 
+
+#+begin_src
+gcloud config set project multi-k8s-217012
+gcloud config set compute/zone us-central1-a
+gcloud container clusters get-credentials multi-cluster
+#+end_src
+
+Create a secret
+#+begin_src
+kubectl create secret generic pgpassword --from-literal PGPASSWORD=some_password
+#+end_src
+
+Setup ingress using HELM
+
+Run command from: https://kubernetes.github.io/ingress-nginx/deploy/#generic-deployment
+
+#+begin_src
+curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get > get_helm.sh
+chmod 700 get_helm.sh
+./get_helm.sh
+#+end_src
+
+Don't run ~helm init~ right now.
+
+RBAC (Role Based Access Control)
+
+#+begin_src
+kubectl create serviceaccount --namespace kube-system tiller
+kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admin --serviceaccount=kube-system:tiller
+
+helm init --service-account tiller --upgrade
+#+end_src
+
+Install postgres ingress
+
+#+begin_src
+helm install stable/nginx-ingress --name my-nginx --set rbac.create=true
+#+end_src
