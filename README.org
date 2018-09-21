@@ -86,5 +86,10 @@ helm install stable/nginx-ingress --name my-nginx --set rbac.create=true
 
 *** Add HTTPS
 
-I'm using k8s.draagle.net.
+I'm using k8s.draagle.net. Install cert-manager to your cluster:
 
+#+BEGIN_SRC 
+helm install --name cert-manager --namespace kube-system stable/cert-manager
+#+END_SRC
+
+See: https://cert-manager.readthedocs.io/en/latest/getting-started/2-installing.html#with-helm
