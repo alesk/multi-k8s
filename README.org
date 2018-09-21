@@ -1,8 +1,36 @@
-Extra steps
+* Extra steps
 
-* Create secret
+** Create secret
 
 #+begin_src
-kubectl.exe create secret generic pgpassword --from-lit
-eral PGPASSWORD=somepassword
+kubectl.exe create secret generic pgpassword --from-literal PGPASSWORD=somepassword
 #+end_src
+
+** Configure Ingress
+
+See: https://kubernetes.github.io/ingress-nginx/deploy/#generic-deployment
+
+Execute *mandatory* command tha preceds any provider specific steps
+
+#+begin_src
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/mandatory.yaml
+#+end_src
+
+*** Minkube
+
+For minikube specific settings execute
+
+#+begin_src
+minikube addons enable ingress
+#+end_src
+
+
+** Google Cloud
+
+Create service account.
+Download credentials in json format and name it service-account.json.
+Install travis CLI inside ruby:2.3 container
+Encrypt service-account.json to service-account.json.enc.
+Delete the original unencrypted service-account.json nad put encrypted
+version to repo.
+Enhance .travis.yml with additional step that decrypts serice-account.json.enc.
